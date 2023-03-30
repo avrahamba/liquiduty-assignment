@@ -1,6 +1,6 @@
 <template>
-  <v-btn @click="backPage">back</v-btn>
-  <v-btn @click="nextPage">next</v-btn>
+  <v-btn class="m-2" @click="backPage">back</v-btn>
+  <v-btn class="m-2" @click="nextPage">next</v-btn>
   <v-table height="600px" fixed-header >
     <thead>
       <tr>
@@ -29,7 +29,7 @@
       </tr>
     </tbody>
   </v-table>
-  <v-btn @click="creatPerson">Create</v-btn>
+  <v-btn class="m-2" @click="creatPerson">Create</v-btn>
 </template>
 
 <script>
@@ -86,5 +86,8 @@ return {
 }
 .w-th{
     width: 100%;
+}
+.m-2{
+    margin: 2em;
 }
 </style>

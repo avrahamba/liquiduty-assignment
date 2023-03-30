@@ -21,12 +21,12 @@ export default createStore({
       searchResult_vehicles,
     }) {
       return [
-        { name: "films", results: searchResult_films },
-        { name: "people", results: searchResult_people },
-        { name: "planets", results: searchResult_planets },
-        { name: "species", results: searchResult_species },
-        { name: "starships", results: searchResult_starships },
-        { name: "vehicles", results: searchResult_vehicles },
+        { name: "Films", results: searchResult_films },
+        { name: "People", results: searchResult_people },
+        { name: "Planets", results: searchResult_planets },
+        { name: "Species", results: searchResult_species },
+        { name: "Starships", results: searchResult_starships },
+        { name: "Vehicles", results: searchResult_vehicles },
       ];
     },
   },
@@ -77,6 +77,7 @@ export default createStore({
           values: [],
         });
       });
+      if (!value) return;
       types.forEach(async (type) => {
         commit(`setSearchResult`, {
           type,

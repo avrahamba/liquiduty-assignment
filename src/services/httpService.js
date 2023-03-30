@@ -16,7 +16,7 @@ const ajax = async (endpoint, method = 'get', data = null) => {
         return res.data;
     } catch (err) {
         var title, txt;
-        if (err.response.status === 401) {
+        if (err?.response?.status === 401) {
             title = 'Unathorized!';
             txt = 'You don\'t have permission for this action...';
         } else {
