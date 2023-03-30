@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import httpService from "../services/httpService";
-import people from './people'
+import people from "./people";
 
 export default createStore({
   state: {
@@ -86,5 +86,5 @@ export default createStore({
       });
     },
   },
-  modules: {people},
+  modules: { people },
 });
