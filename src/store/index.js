@@ -46,6 +46,7 @@ export default createStore({
         values?.results?.reduce((acc, res, i) => {
           if (i < 3) {
             let text = res[typesTitle[type]];
+            if(['starships', 'vehicles'].includes(type)) text = `${res.name} - model: ${res.model}`
             const index = text.toLowerCase().indexOf(searchText.toLowerCase());
             if (index === -1) {
               acc.push(text);
