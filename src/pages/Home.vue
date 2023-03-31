@@ -10,7 +10,7 @@
         v-model="searchText"
         label="Label"
       />
-      <v-table fixed-header>
+      <v-table>
         <tbody>
           <tr v-for="(searchResult, index) in searchResultList" :key="index">
             <td
@@ -26,9 +26,10 @@
               class="router-link-container"
               v-if="searchResult.type === 'btn'"
             >
-              <router-link class="router-link" :to="searchResult.text"
-                ><span>View all</span> <v-icon icon="mdi-arrow-right"></v-icon
-              ></router-link>
+              <router-link class="router-link" :to="searchResult.text">
+                <span>View all {{ searchResult.text }}</span>
+                <v-icon icon="mdi-arrow-right"> </v-icon>
+              </router-link>
             </td>
           </tr>
         </tbody>
@@ -39,6 +40,7 @@
 
 <script>
 import debounce from "debounce";
+
 export default {
   name: "Home",
   data() {
@@ -46,26 +48,28 @@ export default {
       searchText: "",
     };
   },
-  methods: {
-    onClick() {
-      console.log("1 :>> ", 1);
-    },
+  created() {
+    this.$store.dispatch("searchText", "");
   },
   computed: {
     searchResultList() {
       return this.$store.getters.searchResult
         .filter((res) => res.results.length)
-        .reduce((acc, res) => {
-          acc.push(
+        .reduce(
+          (acc, res) => [
+            ...acc,
             ...[
               { type: "title", text: res.name },
               ...res.results.map((text) => ({ type: "text", text })),
               { type: "btn", text: res.name },
-            ]
-          );
-          return acc;
-        }, []);
+            ],
+          ],
+          []
+        );
     },
+  },
+  beforeRouteLeave() {
+    this.$store.commit("setPage", 1);
   },
   watch: {
     searchText: debounce(function (val) {

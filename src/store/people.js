@@ -5,12 +5,10 @@ export default {
   state: () => ({
     people: [],
     personToEdit: null,
-    page: 1,
   }),
   getters: {
     people: ({ people }) => people,
     personToEdit: ({ personToEdit }) => personToEdit,
-    page: ({ page }) => page,
   },
   mutations: {
     setPeople(state, people) {
@@ -22,9 +20,6 @@ export default {
     },
     setPersonToEdit(state, personToEdit) {
       state.personToEdit = personToEdit;
-    },
-    setPage(state, page) {
-      state.page = page;
     },
     savePerson({ people }, person) {
       if (person.url) {

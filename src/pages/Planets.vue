@@ -1,11 +1,9 @@
 <template>
-    <div class="">
-        Planets
-    </div>
+  <h1>Planets</h1>
 </template>
 
 <script>
-export default{
-    name:'Planets'
-}
+export default {
+  name: "Planets",
+};
 </script>

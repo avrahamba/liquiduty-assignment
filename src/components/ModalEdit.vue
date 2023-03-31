@@ -12,14 +12,15 @@
                 <v-text-field
                   v-model="personToEdit.name"
                   label="Name"
-                  required
+                  :rules="rules.name"
                 />
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-select
                   v-model="personToEdit.gender"
-                  label="Select"
+                  label="Gender"
                   :items="['male', 'female', 'n/a']"
+                  :rules="rules.gender"
                 ></v-select>
               </v-col>
 
@@ -27,7 +28,7 @@
                 <v-text-field
                   v-model="personToEdit.birth_year"
                   label="Birth year"
-                  required
+                  :rules="rules.year"
                 />
               </v-col>
 
@@ -36,7 +37,7 @@
                   type="number"
                   v-model="personToEdit.height"
                   label="Height"
-                  required
+                  :rules="rules.height"
                 />
               </v-col>
               <v-col cols="12" sm="6" md="4">
@@ -44,7 +45,7 @@
                   type="number"
                   v-model="personToEdit.mass"
                   label="Mass"
-                  required
+                  :rules="rules.mass"
                 />
               </v-col>
             </v-row>
@@ -74,6 +75,18 @@ export default {
   data() {
     return {
       personToEdit: {},
+      rules: ["name", "gender", "year", "height", "mass"].reduce(
+        (acc, field) => ({
+          ...acc,
+          [field]: [
+            (value) => {
+              if (value) return true;
+              return `You must enter a ${field}.`;
+            },
+          ],
+        }),
+        {}
+      ),
     };
   },
   computed: {
@@ -96,6 +109,12 @@ export default {
       this.$store.commit("setPersonToEdit");
     },
     saveDialog() {
+      if (
+        !["name", "gender", "birth_year", "height", "mass"].every(
+          (field) => this.personToEdit[field]
+        )
+      )
+        return;
       this.$store.dispatch("savePerson", this.personToEdit);
       this.closeDialog();
     },

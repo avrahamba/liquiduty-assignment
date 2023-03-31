@@ -1,7 +1,15 @@
 <template>
-  <v-btn class="m-2" @click="backPage">back</v-btn>
-  <v-btn class="m-2" @click="nextPage">next</v-btn>
-  <v-table height="600px" fixed-header >
+  <h1>People</h1>
+  <div class="top-btns">
+    <router-link to="/"
+      ><v-btn class="m-2">Return to search</v-btn></router-link
+    >
+    <div class="">
+      <v-btn class="m-2" @click="backPage">back</v-btn>
+      <v-btn class="m-2" @click="nextPage">next</v-btn>
+    </div>
+  </div>
+  <v-table height="600px" fixed-header>
     <thead>
       <tr>
         <th class="text-left w-th">Name</th>
@@ -9,7 +17,7 @@
         <th class="text-left w-6">Birth year</th>
         <th class="text-left w-6">Height</th>
         <th class="text-left w-6">Mass</th>
-        <th class="text-left w-4" ></th>
+        <th class="text-left w-4"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,14 +26,18 @@
         :key="item.name"
         @mouseover="r_index = index"
         @mouseleave="r_index = -1"
+        :class="{ 'selected-row': index === r_index }"
       >
         <td>{{ item.name }}</td>
         <td>{{ item.gender }}</td>
         <td>{{ item.birth_year }}</td>
-        <td >{{ item.height }}</td>
-        <td >{{ item.mass }}</td>
-        <td class="w-4"  v-if="index==r_index"><button @click="editPerson(item)">Edit</button><button @click="removePerson(item.url)">Delete</button></td>
-        <td class="w-4" v-else/>
+        <td>{{ item.height }}</td>
+        <td>{{ item.mass }}</td>
+        <td class="w-4" v-if="index === r_index">
+          <button @click="editPerson(item)">Edit</button
+          ><button @click="removePerson(item.url)">Delete</button>
+        </td>
+        <td class="w-4" v-else />
       </tr>
     </tbody>
   </v-table>
@@ -38,10 +50,10 @@ export default {
   created() {
     this.$store.dispatch("initPeople");
   },
-  data(){
-return {
-    r_index:-1,
-}
+  data() {
+    return {
+      r_index: -1,
+    };
   },
   computed: {
     people() {
@@ -53,7 +65,7 @@ return {
       this.$store.dispatch("removePerson", itemUrl);
     },
     editPerson(item) {
-      this.$store.commit("setPersonToEdit", item);
+      this.$store.commit("setPersonToEdit", { ...item });
     },
     creatPerson() {
       this.$store.commit("setPersonToEdit", {
@@ -75,19 +87,30 @@ return {
 </script>
 
 <style scoped lang="scss">
-.w-4{
-    min-width: 5.5em;
+.w-4 {
+  min-width: 5.5em;
 }
-.w-5{
-    width: 5em;
+.w-5 {
+  width: 5em;
 }
-.w-6{
-    width: 6em;
+.w-6 {
+  width: 6em;
 }
-.w-th{
-    width: 100%;
+.w-th {
+  width: 100%;
 }
-.m-2{
-    margin: 2em;
+.m-2 {
+  margin: 2em;
+}
+h1 {
+  padding: 0.5em 2em;
+}
+.top-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-inline-end: 4em;
+}
+.selected-row {
+  background-color: #f6f6f6;
 }
 </style>

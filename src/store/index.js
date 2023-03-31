@@ -10,6 +10,7 @@ export default createStore({
     searchResult_species: [],
     searchResult_starships: [],
     searchResult_vehicles: [],
+    page: 1,
   },
   getters: {
     searchResult({
@@ -29,6 +30,7 @@ export default createStore({
         { name: "Vehicles", results: searchResult_vehicles },
       ];
     },
+    page: ({ page }) => page,
   },
   mutations: {
     setSearchResult(state, { type, values, searchText }) {
@@ -59,6 +61,9 @@ export default createStore({
           }
           return acc;
         }, []) || [];
+    },
+    setPage(state, page) {
+      state.page = page;
     },
   },
   actions: {
